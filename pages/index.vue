@@ -39,7 +39,6 @@ export default {
 
   methods: {
     moveToDetailPage(id) {
-      console.log(id);
       // nuxt는 내부적으로 router를 가지고 있다.
       this.$router.push(`detail/${id}`);
     }

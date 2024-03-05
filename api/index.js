@@ -1,11 +1,17 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURLl: 'http://localhost:3000/',
+  baseURL: 'http://localhost:3000/',
 })
-
-function fetchProductById(id) {
-  return instance.get(`/products/${id}` )
+async function fetchProductById(id) {
+  const response = await instance.get(`/products/${id}`);
+  console.log("imgurl type: ",typeof(response.data.imageUrl));
+  console.log(response.data.imageUrl.replace("{id}", id));
+  response.data.imageUrl = response.data.imageUrl.replace("{id}", id);
+  // product.imageUrl.replace("{id}", id);
+  // product.data.imageUrl.replace("{id}", id);
+  // console.log(product.data.imageUrl);
+  return response;
 }
 
-export {fetchProductById}
+export { fetchProductById }
