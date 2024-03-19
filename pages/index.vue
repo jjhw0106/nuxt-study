@@ -2,12 +2,7 @@
   <div class="app">
     <main>
       <!-- <SearchInput :searchKeyword="searchKeyword" @input="updateSearchKeyword"></SearchInput> -->
-      <SearchInput v-model="searchKeyword"></SearchInput>
-      <!-- <search-input 
-        :searchKeyword="searchKeyword"
-        @input="updateSearchKeyword">
-      </search-input> -->
-      <!-- <search-input v-model="searchKeyword" @search="searchProducts" ></search-input> -->
+      <SearchInput v-model="searchKeyword" @search="searchProducts"></SearchInput>
       <ul>
         <li 
           v-for="product in products" 
@@ -27,6 +22,7 @@
 import axios from 'axios';
 // import { fetchProductsByKeyword } from '~/api';
 import {SearchInput} from '@/components/SearchInput.vue';
+import { fetchProductsByKeyword } from '~/api';
 
 export default {
   // asyncData여야만 한다.
@@ -47,8 +43,14 @@ export default {
       // nuxt는 내부적으로 router를 가지고 있다.
       this.$router.push(`detail/${id}`);
     },
+
     updateSearchKeyword(keyword) {
       this.searchKeyword = keyword
+    },
+
+    async searchProducts() {
+      await fetchProductsByKeyword(this.searchKeyword);
+      console.log(response);
     },
   },
   // vda : 자동완성 스니펫
