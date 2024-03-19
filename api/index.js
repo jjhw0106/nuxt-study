@@ -14,4 +14,13 @@ async function fetchProductById(id) {
   return response;
 }
 
-export { fetchProductById }
+function fetchProductsByKeyword(keyword) {
+  console.log("search!!");
+  return instance.get(`/products`, {
+    params: {
+      name_like: keyword,
+    }
+  })  
+}
+
+export { fetchProductById, fetchProductsByKeyword }

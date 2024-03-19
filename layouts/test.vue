@@ -3,8 +3,9 @@
     <header>
       <h1>
         <nuxt-link to="/">
-          Nuxt Shopping
+          Test Layout
         </nuxt-link>
+        
       </h1>
     </header>
     <Nuxt />
