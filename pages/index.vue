@@ -1,15 +1,13 @@
 <template>
   <div class="app">
     <main>
-      <!-- <SearchInput :searchKeyword="searchKeyword" @input="updateSearchKeyword"></SearchInput> -->
-      <SearchInput v-model="searchKeyword" @search="searchProducts"></SearchInput>
+      <SearchInput v-model="searchKeyword" @input="updateSearchKeyword" @search="searchProducts"></SearchInput>
       <ul>
         <li 
           v-for="product in products" 
           :key="product.id"
           @click="moveToDetailPage(product.id)"
           class="item flex">
-
           <img class="product-image" :src="product.imageUrl" :alt="product.name"/>
           <p>{{ product.name }}</p>
           <span>{{ product.price }}</span>
@@ -49,8 +47,12 @@ export default {
     },
 
     async searchProducts() {
-      await fetchProductsByKeyword(this.searchKeyword);
-      console.log(response);
+      const response = await fetchProductsByKeyword(this.searchKeyword);
+      console.log(response.data);
+      this.products = response.data.map(item => ({
+      ...item,
+      imageUrl: item.imageUrl.replace('{id}', Math.floor(Math.random() * 30))
+    }));
     },
   },
   // vda : 자동완성 스니펫
